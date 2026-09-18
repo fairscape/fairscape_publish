@@ -1,0 +1,51 @@
+[project]
+name = "fairscape-publish"
+version = "0.1.0"
+description = "Push a local FAIRSCAPE RO-Crate, with all of its local files, to Dataverse, Zenodo, Figshare, or DataCite."
+readme = "README.md"
+authors = [
+    { name = "Justin Niestroy", email = "jniestroy@gmail.com" },
+    { name = "Max Levinson",    email = "mal8ch@virginia.edu" },
+    { name = "Tim Clark",       email = "twc8q@virginia.edu" },
+]
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+keywords = ["fairscape", "RO-Crate", "dataverse", "zenodo", "figshare", "datacite", "FAIR"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = [
+    "click>=8.1.7",
+    "requests>=2.31",
+    "pydantic>=2.5.1",
+    "fairscape-models>=1.2.2",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "responses>=0.24",
+]
+
+[project.scripts]
+fairscape-publish = "fairscape_publish.__main__:cli"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"fairscape_publish" = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "live: hits a real repository API. Never run in CI; requires explicit opt-in via env vars.",
+]
